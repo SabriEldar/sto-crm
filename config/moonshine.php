@@ -1,11 +1,11 @@
 <?php
 
 use MoonShine\Exceptions\MoonShineNotFoundException;
-use MoonShine\Forms\LoginForm;
+use App\MoonShine\Forms\LoginForm;
 use MoonShine\Http\Middleware\Authenticate;
 use MoonShine\Http\Middleware\SecurityHeadersMiddleware;
-use MoonShine\Models\MoonshineUser;
-use MoonShine\MoonShineLayout;
+use MoonShine\Permissions\Models\MoonshineUser;
+use App\MoonShine\MoonShineLayout;
 use MoonShine\Pages\ProfilePage;
 
 return [
@@ -17,10 +17,8 @@ return [
     'logo_small' => env('MOONSHINE_LOGO_SMALL'),
 
     'route' => [
-        'domain' => env('MOONSHINE_URL', ''),
         'prefix' => env('MOONSHINE_ROUTE_PREFIX', 'admin'),
         'single_page_prefix' => 'page',
-        'index' => 'moonshine.index',
         'middlewares' => [
             SecurityHeadersMiddleware::class,
         ],
@@ -71,24 +69,19 @@ return [
                 'model' => MoonshineUser::class,
             ],
         ],
-        'pipelines' => [],
     ],
     'locales' => [
         'en',
         'ru',
     ],
 
-    'global_search' => [
-        // User::class
-    ],
-
     'tinymce' => [
-        'file_manager' => false, // or 'laravel-filemanager' prefix for lfm
+        'file_manager' => env('MOONSHINE_TINYMCE_FILE_MANAGER', ''),
         'token' => env('MOONSHINE_TINYMCE_TOKEN', ''),
         'version' => env('MOONSHINE_TINYMCE_VERSION', '6'),
     ],
 
     'socialite' => [
-        // 'driver' => 'path_to_image_for_button'
+        'github' => '/images/icons/github-mark.svg'
     ],
 ];
